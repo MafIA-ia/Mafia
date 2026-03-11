@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MafIA - Proyecto de Ethan y Nicolas</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#343541;
+color:white;
+height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+header{
+padding:16px;
+text-align:center;
+background:#202123;
+font-size:22px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+#logo{
+width:32px;
+height:32px;
+border-radius:50%;
+background:#19c37d;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+color:black;
+}
+
+#chat{
+flex:1;
+overflow-y:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.message{
+max-width:850px;
+margin:auto;
+width:100%;
+padding:16px;
+border-radius:8px;
+line-height:1.5;
+}
+
+.user{background:#444654}
+
+.ai{
+background:#343541;
+border:1px solid #444654;
+}
+
+#inputArea{
+display:flex;
+justify-content:center;
+padding:18px;
+border-top:1px solid #444654;
+}
+
+#inputContainer{
+width:100%;
+max-width:850px;
+display:flex;
+background:#40414f;
+padding:10px;
+border-radius:10px;
+}
+
+input{
+flex:1;
+background:transparent;
+border:none;
+outline:none;
+color:white;
+font-size:16px;
+}
+
+button{
+background:#19c37d;
+border:none;
+color:white;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+margin-left:6px;
+}
+
+button:hover{opacity:0.85}
+
+footer{
+text-align:center;
+font-size:12px;
+padding:6px;
+color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div id="logo">M</div>
+MafIA 🤖 | Proyecto de Ethan Perez Escobedo y Nicolas Cantu Zarco
+</header>
+
+<div id="chat"></div>
+
+<div id="inputArea">
+<div id="inputContainer">
+<input id="userInput" placeholder="Escribe un mensaje..." />
+<button onclick="sendMessage()">Enviar</button>
+<button onclick="hablar()">🎤</button>
+</div>
+</div>
+
+<footer>Inteligencia Artificial escolar • HTML + CSS + JavaScript</footer>
+
+<script>
+
+const respuestas = {
+"hola":"¡Hola! Soy MafIA 🤖. Puedes preguntarme cosas o pedirme operaciones matemáticas.",
+"como te llamas":"Me llamo MafIA.",
+"quien te creo":"Fui creada por Ethan Perez Escobedo y Nicolas Cantu Zarco.",
+"que es ia":"La inteligencia artificial es una tecnología que permite a las computadoras analizar información y responder de forma inteligente.",
+"gracias":"¡De nada!",
+"adios":"¡Hasta luego!"
+};
+
+function addMessage(text, className){
+const chat = document.getElementById("chat");
+const msg = document.createElement("div");
+msg.className = "message " + className;
+msg.textContent = text;
+chat.appendChild(msg);
+chat.scrollTop = chat.scrollHeight;
+}
+
+function hablarTexto(texto){
+const voz = new SpeechSynthesisUtterance(texto);
+voz.lang = "es-ES";
+speechSynthesis.speak(voz);
+}
+
+function calcular(texto){
+
+texto = texto.replace(/x/g,"*");
+
+try{
+if(/[0-9]+\s*[\+\-\*\/x]\s*[0-9]+/.test(texto)){
+const resultado = eval(texto);
+return "El resultado es " + resultado;
+}
+}catch{}
+
+return null;
+}
+
+async function respuestaIA(text){
+
+const calc = calcular(text);
+if(calc) return calc;
+
+for(const key in respuestas){
+if(text.includes(key)){
+return respuestas[key];
+}
+}
+
+try{
+const res = await fetch("https://es.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(text));
+const data = await res.json();
+
+if(data.extract){
+return data.extract.substring(0,200)+"...";
+}
+}catch{}
+
+return "No encontré información, pero sigo aprendiendo 🤖";
+}
+
+async function sendMessage(){
+
+const input = document.getElementById("userInput");
+const text = input.value.trim();
+
+if(text === "") return;
+
+addMessage(text,"user");
+input.value="";
+
+addMessage("MafIA está pensando...","ai");
+
+const chat = document.getElementById("chat");
+
+setTimeout(async ()=>{
+
+chat.removeChild(chat.lastChild);
+
+const resp = await respuestaIA(text.toLowerCase());
+
+addMessage(resp,"ai");
+hablarTexto(resp);
+
+},600);
+}
+
+// ENTER
+
+document.getElementById("userInput").addEventListener("keypress",e=>{
+if(e.key === "Enter") sendMessage();
+});
+
+// voz a texto
+
+function hablar(){
+
+const reconocimiento = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+reconocimiento.lang = "es-ES";
+
+reconocimiento.start();
+
+reconocimiento.onresult = function(e){
+const texto = e.results[0][0].transcript;
+document.getElementById("userInput").value = texto;
+sendMessage();
+};
+
+}
+
+window.onload = ()=>{
+addMessage("Hola 👋 soy MafIA. Puedo ayudarte con preguntas y matemáticas (sumas, restas, multiplicaciones y divisiones).","ai");
+};
+
+</script>
+
+</body>
+</html>
