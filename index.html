@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MafIA - Proyecto de Ethan y Nicolas</title>
+<title>MafIA - Proyecto</title>
 
 <style>
 *{box-sizing:border-box}
@@ -61,10 +60,7 @@ border-radius:8px;
 line-height:1.5;
 }
 
-.user{
-background:#444654;
-}
-
+.user{background:#444654;}
 .ai{
 background:#343541;
 border:1px solid #444654;
@@ -106,10 +102,6 @@ font-weight:bold;
 margin-left:6px;
 }
 
-button:hover{
-opacity:0.85;
-}
-
 footer{
 text-align:center;
 font-size:12px;
@@ -123,7 +115,7 @@ color:#aaa;
 
 <header>
 <div id="logo">M</div>
-MafIA 🤖 | Proyecto de Ethan Perez Escobedo y Nicolas Cantu Zarco
+MafIA 🤖 | Proyecto de Ethan y Nicolas
 </header>
 
 <div id="chat"></div>
@@ -132,7 +124,6 @@ MafIA 🤖 | Proyecto de Ethan Perez Escobedo y Nicolas Cantu Zarco
 <div id="inputContainer">
 <input id="userInput" placeholder="Escribe un mensaje..." />
 <button onclick="sendMessage()">Enviar</button>
-<button onclick="hablar()">🎤</button>
 </div>
 </div>
 
@@ -141,37 +132,45 @@ MafIA 🤖 | Proyecto de Ethan Perez Escobedo y Nicolas Cantu Zarco
 <script>
 
 const respuestas = {
-"que son las coordenadas":"as coordenadas son un conjunto de números que sirven para determinar la posición exacta de un punto en un espacio determinado como un mapa, una gráfica o el espacio tridimensional ",
-"que es la escuela luis padilla nervo TV":"a Escuela Luis Padilla Nervo TV es una institución educativa de nivel primaria ubicada en el municipio de Apodaca, Nuevo León. El distintivo "TV" se refiere a que opera en el Turno Vespertino.  Aquí tienes los detalles principales del plantel: Ubicación: Se encuentra en la calle Geranio S/N, en la colonia Valle de las Flores, Apodaca. Capacidad: Cuenta con 6 grupos escolares y atiende a una población aproximada de 192 alumnos. Infraestructura y Proyectos: Recientemente, la escuela ha buscado recursos para mejoras como la instalación de cámaras de vigilancia, adquisición de computadoras, pintura y la construcción de techado para áreas de bancas. Comunidad: Existe también una versión de esta escuela en el Turno Matutino (TM) que comparte instalaciones o nombre, pero funciona de manera independiente en sus procesos de inscripción. ",
-"mejores componentes para gaming":" Para marzo de 2026, los mejores componentes para gaming se definen por la adopción masiva de la arquitectura Zen 5 de AMD, los procesadores Intel Core Ultra (Serie 2) y las tarjetas gráficas NVIDIA Serie 50 (Blackwell). El componente más crítico para los FPS sigue siendo la unidad de procesamiento gráfico (GPU). 
-"quien es la maestra Diana":" La mejor profe, es querida y respetada.",
-"que son todas las cosas que hay en el espacio":"El espacio (o el universo) es todo lo que existe, incluyendo la materia, la energía, el tiempo y el espacio mismo. Se compone de una variedad de objetos y sustancias que van desde partículas microscópicas hasta estructuras colosales.  European Space Agency European Space Agency  +2 Aquí tienes una lista de las principales "cosas" que hay en el espacio: 1. Cuerpos Celestes y Objetos Astronómicos Son los elementos físicos individuales que podemos identificar: Estrellas: Enormes esferas de gas (principalmente hidrógeno y helio) que producen su propia luz y energía. Planetas: Cuerpos rocosos o gaseosos que orbitan una estrella. Se dividen en planetas del Sistema Solar y exoplanetas (que orbitan otras estrellas). Satélites Naturales: Cuerpos que orbitan planetas, como nuestra Luna. Asteroides y Meteoroides: Fragmentos de roca y metal más pequeños que los planetas, comunes en el cinturón de asteroides. Cometas: Cuerpos de hielo, polvo y roca que desarrollan una "cola" cuando se acercan al Sol. Agujeros Negros: Regiones con una gravedad tan intensa que nada, ni siquiera la luz, puede escapar de ellas.  YouTube YouTube  +7 2. Estructuras a Gran Escala El universo organiza la materia en grupos inmensos: Galaxias: Colecciones masivas de miles de millones de estrellas, polvo y gas unidos por la gravedad. Nosotros vivimos en la Vía Láctea. Nebulosas: Nubes gigantes de gas y polvo; algunas son "guarderías" donde nacen nuevas estrellas. Cúmulos Estelares: Grupos de estrellas que se mantienen juntas por su mutua atracción gravitatoria.  Wikipedia Wikipedia  +4 3. Materia y Energía "Invisibles" La mayor parte de lo que hay en el espacio no se puede ver directamente:  Materia Oscura: Una sustancia misteriosa que no emite luz pero tiene gravedad; compone cerca del 27% del universo. Energía Oscura: Una fuerza que parece estar acelerando la expansión del universo. Polvo Cósmico y Gas Interestelar: Partículas pequeñas y átomos esparcidos por el vacío entre estrellas.  European Space Agency European Space Agency  +4 4. Elementos Químicos Todo lo anterior está formado por ingredientes básicos llamados átomos. Los 10 más comunes en el espacio son:  Hidrógeno Helio Oxígeno Carbono Neón Nitrógeno Magnesio Silicio Hierro Azufre  5. Objetos Hechos por el Humano También existen objetos artificiales puestos allí por la exploración espacial:  Satélites Artificiales: Dispositivos para comunicaciones o investigación. Estaciones Espaciales: Como la Estación Espacial Internacional. Sondas y Rovers: Robots que exploran otros mundos. Basura Espacial: Restos de cohetes y satélites viejos.",
-"que es el sol":"El Sol es una estrella que está en el centro del sistema solar y nos da luz y energía.",
-"que es mexico":"México es un país ubicado en América del Norte con una gran cultura e historia.",
-"quien fue albert einstein":"Albert Einstein fue un físico famoso que creó la teoría de la relatividad.",
-"que es un volcan":"Un volcán es una montaña que puede expulsar lava, ceniza y gases desde el interior de la Tierra."
-"que es la luna":"La Luna es el satélite natural de la Tierra. Orbita nuestro planeta y refleja la luz del Sol.",
+
 "hola":"¡Hola! Soy MafIA 🤖. Puedes preguntarme cosas o pedirme operaciones matemáticas.",
+
 "como te llamas":"Me llamo MafIA.",
+
 "quien te creo":"Fui creada por Ethan Perez Escobedo y Nicolas Cantu Zarco.",
+
 "que es ia":"La inteligencia artificial es una tecnología que permite a las computadoras analizar información y responder de forma inteligente.",
+
+"que son las coordenadas":"Las coordenadas son números que permiten ubicar la posición exacta de un punto en un mapa, gráfico o espacio.",
+
+"que es el sol":"El Sol es una estrella que está en el centro del sistema solar y nos da luz y energía.",
+
+"que es la luna":"La Luna es el satélite natural de la Tierra y refleja la luz del Sol.",
+
+"que es mexico":"México es un país ubicado en América del Norte con una gran cultura e historia.",
+
+"quien fue albert einstein":"Albert Einstein fue un físico famoso que creó la teoría de la relatividad.",
+
+"que es un volcan":"Un volcán es una montaña que puede expulsar lava, ceniza y gases desde el interior de la Tierra.",
+
 "gracias":"¡De nada!",
+
 "adios":"¡Hasta luego!"
 };
 
-function addMessage(text, className){
-const chat = document.getElementById("chat");
-const msg = document.createElement("div");
-msg.className = "message " + className;
-msg.textContent = text;
-chat.appendChild(msg);
-chat.scrollTop = chat.scrollHeight;
-}
+function addMessage(text, tipo){
 
-function hablarTexto(texto){
-const voz = new SpeechSynthesisUtterance(texto);
-voz.lang = "es-ES";
-speechSynthesis.speak(voz);
+const chat = document.getElementById("chat");
+
+const msg = document.createElement("div");
+msg.className = "message " + tipo;
+
+msg.textContent = text;
+
+chat.appendChild(msg);
+
+chat.scrollTop = chat.scrollHeight;
+
 }
 
 function calcular(texto){
@@ -179,46 +178,51 @@ function calcular(texto){
 texto = texto.replace(/x/g,"*");
 
 try{
+
 if(/[0-9]+\s*[\+\-\*\/]\s*[0-9]+/.test(texto)){
+
 const resultado = eval(texto);
+
 return "El resultado es " + resultado;
+
 }
+
 }catch{}
 
 return null;
+
 }
 
 async function respuestaIA(text){
 
 const calc = calcular(text);
+
 if(calc) return calc;
 
 for(const key in respuestas){
+
 if(text.includes(key)){
+
 return respuestas[key];
-}
+
 }
 
-try{
-const res = await fetch("https://es.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(text));
-const data = await res.json();
-
-if(data.extract){
-return data.extract.substring(0,200)+"...";
 }
-}catch{}
 
 return "No encontré información, pero sigo aprendiendo 🤖";
+
 }
 
 async function sendMessage(){
 
 const input = document.getElementById("userInput");
+
 const text = input.value.trim();
 
 if(text === "") return;
 
 addMessage(text,"user");
+
 input.value="";
 
 addMessage("MafIA está pensando...","ai");
@@ -232,33 +236,17 @@ chat.removeChild(chat.lastChild);
 const resp = await respuestaIA(text.toLowerCase());
 
 addMessage(resp,"ai");
-hablarTexto(resp);
 
-},600);
+},500);
+
 }
 
 document.getElementById("userInput").addEventListener("keypress",e=>{
 if(e.key === "Enter") sendMessage();
 });
 
-function hablar(){
-
-const reconocimiento = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-
-reconocimiento.lang = "es-ES";
-
-reconocimiento.start();
-
-reconocimiento.onresult = function(e){
-const texto = e.results[0][0].transcript;
-document.getElementById("userInput").value = texto;
-sendMessage();
-};
-
-}
-
 window.onload = ()=>{
-addMessage("Hola 👋 soy MafIA. Puedo ayudarte con preguntas y matemáticas (sumas, restas, multiplicaciones y divisiones).","ai");
+addMessage("Hola 👋 soy MafIA. Pregúntame algo o escribe una operación matemática.","ai");
 };
 
 </script>
